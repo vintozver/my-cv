@@ -11,7 +11,31 @@ python -m pip install .
 PYTHONPATH=src python -m flask --app my_cv.main run
 ```
 
-Open <http://127.0.0.1:5000/>. Each resume section renders on its own page, with shared navigation between `/profile`, `/experience`, `/projects`, `/skills`, `/education`, `/credentials`, and `/interests`. The home page redirects to `/profile`. Edit the section templates in `src/my_cv/templates/sections/` to update resume content, `src/my_cv/templates/index.html` to update the shared layout and navigation, and `src/my_cv/static/style.css` to customize its appearance.
+Open <http://127.0.0.1:5000/>. Each resume section renders on its own page, with shared navigation between `/profile`, `/experience`, `/projects`, `/skills`, `/education`, `/credentials`, and `/interests`. The home page redirects to `/profile`. Edit the Markdown files in `src/my_cv/templates/sections/` to update resume content, `src/my_cv/templates/index.html` to update the shared layout and navigation, and `src/my_cv/static/style.css` to customize its appearance. Markdown is converted to HTML when rendered; raw HTML in section files is escaped.
+
+## Signed PDF download
+
+The download link produces a PDF containing all sections, with a watermark on every page and a cryptographic PDF signature. It records the UTC generation time and ends with a separate signature-details page, linked from the first page. The signature page lists the signing certificate details and explains how to validate the signature with standard PDF tools. WeasyPrint requires its [native system dependencies](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation).
+
+Set `MY_CV_CONFIG` to the path of a protected YAML file outside the repository. Without this variable, the application reads `config.yaml` in its working directory. The checked-in `config.yaml` is an empty example and does not contain credentials. Supply PEM content as YAML block scalars:
+
+```yaml
+certificate:
+  public: |
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+  private: |
+    -----BEGIN PRIVATE KEY-----
+    ...
+    -----END PRIVATE KEY-----
+```
+
+`public` must be an X.509 certificate, not a standalone public key; `private` must be the matching, unencrypted private key. Restrict access to the configuration file (for example, `chmod 600`) and never commit real credentials. `config.local.yaml` and `*.pem` are ignored by Git, but other secret-bearing files must also be kept out of the repository. The download returns HTTP 503 rather than an unsigned PDF if the configuration is missing, invalid, or the keys do not match. Signature trust depends on the certificate and the PDF viewer's trust settings; a self-signed certificate is not automatically trusted.
+
+The matching public key is served as PEM at <https://www.vitaly-greck.us/.well-known/pki/pub> so recipients can compare it with the key embedded in the signing certificate.
+
+To run the tests, install `python -m pip install -e '.[test]'` and run `python -m unittest discover -s tests`.
 
 ## WSGI deployment
 

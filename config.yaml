@@ -1,0 +1,5 @@
+certificate:
+  # PEM-encoded X.509 certificate and matching private key.
+  # Set these in an untracked config.local.yaml or a file outside the repository.
+  public: ""
+  private: ""

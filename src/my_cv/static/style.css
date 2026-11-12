@@ -124,6 +124,12 @@ h1 {
   font-size: 0.86rem;
 }
 
+.download-link {
+  display: inline-block;
+  margin-top: 1.2rem;
+  font-weight: 650;
+}
+
 .section-nav {
   position: sticky;
   top: 2rem;
@@ -168,17 +174,21 @@ main {
   border-top: 1px solid var(--line);
 }
 
-.section h2 {
+.section h1 {
   margin-bottom: 1.25rem;
   font-size: clamp(1.55rem, 3vw, 2rem);
   letter-spacing: -0.035em;
   line-height: 1.2;
 }
 
-.section h3 {
-  margin-bottom: 0.18rem;
+.section h2 {
+  margin: 1.5rem 0 0.4rem;
   font-size: 1.08rem;
   line-height: 1.4;
+}
+
+.section ul {
+  padding-left: 1.2rem;
 }
 
 .intro {
@@ -395,6 +405,64 @@ li + li {
   .page,
   .sidebar {
     background: #fff;
+  }
+
+  @page {
+    size: A4;
+    margin: 18mm;
+  }
+
+  .resume-pdf {
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  .resume-pdf main {
+    padding: 0;
+  }
+
+  .resume-pdf .section {
+    padding: 0 0 0.8rem;
+    break-inside: auto;
+  }
+
+  .resume-pdf .section + .section {
+    padding-top: 0.8rem;
+  }
+
+  .resume-pdf .section h1 {
+    font-size: 16pt;
+    break-after: avoid;
+  }
+
+  .resume-pdf .section h2 {
+    font-size: 11pt;
+    break-after: avoid;
+  }
+
+  .resume-pdf .signature-details {
+    break-before: page;
+  }
+
+  .resume-pdf .signature-details dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem 1rem;
+  }
+
+  .resume-pdf .signature-details dd {
+    margin: 0;
+  }
+
+  .resume-pdf .watermark {
+    position: fixed;
+    top: 45%;
+    left: 10%;
+    color: rgba(8, 126, 131, 0.12);
+    font-size: 36pt;
+    font-weight: bold;
+    transform: rotate(-35deg);
+    white-space: nowrap;
   }
 
   .page {

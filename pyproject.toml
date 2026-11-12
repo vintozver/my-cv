@@ -6,10 +6,20 @@ build-backend = "setuptools.build_meta"
 name = "my-cv"
 version = "0.1.0"
 description = "A WSGI-ready CV website"
-dependencies = ["Flask", "Jinja2"]
+dependencies = [
+    "Flask",
+    "Jinja2",
+    "markdown-it-py",
+    "PyYAML",
+    "pyHanko",
+    "WeasyPrint",
+]
+
+[project.optional-dependencies]
+test = ["pypdf"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-my_cv = ["templates/*.html", "templates/sections/*.html", "static/*.css"]
+my_cv = ["templates/*.html", "templates/sections/*.md", "static/*.css"]
