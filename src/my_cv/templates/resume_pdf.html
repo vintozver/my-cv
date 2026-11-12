@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vitaly Greck | Resume</title>
+  </head>
+  <body class="resume-pdf">
+    <div class="watermark">Vitaly Greck · Resume</div>
+    <header>
+      <h1>Vitaly Greck</h1>
+      <p>Principal Software Engineer · Kent, Washington</p>
+      <p>
+        <a href="https://www.linkedin.com/in/vintozver">LinkedIn</a> ·
+        <a href="https://github.com/vintozver">GitHub</a> ·
+        <a href="https://stackoverflow.com/users/884077/vitaly-greck">Stack Overflow</a>
+      </p>
+    </header>
+    <main>
+      {% for section, content in sections %}
+        <section class="section" id="{{ section }}">{{ content }}</section>
+      {% endfor %}
+    </main>
+  </body>
+</html>

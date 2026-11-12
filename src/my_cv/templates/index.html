@@ -24,20 +24,13 @@
             <a href="https://github.com/vintozver">GitHub</a>
             <a href="https://stackoverflow.com/users/884077/vitaly-greck">Stack Overflow</a>
           </div>
+          <a class="download-link" href="{{ url_for('download_pdf') }}">Download as PDF</a>
         </header>
 
         <nav class="section-nav" aria-label="Resume sections">
           <p class="nav-label">Resume sections</p>
           <ul>
-            {% for section, title in [
-              ("profile", "Profile"),
-              ("experience", "Experience"),
-              ("projects", "Selected projects"),
-              ("skills", "Technical skills"),
-              ("education", "Education"),
-              ("credentials", "Certifications"),
-              ("interests", "Interests")
-            ] %}
+            {% for section, title in sections.items() %}
               <li>
                 <a href="{{ url_for('section_page', section=section) }}"
                    {% if active_section == section %}aria-current="page"{% endif %}>{{ title }}</a>
@@ -48,7 +41,9 @@
       </aside>
 
       <main id="main">
-        {% include "sections/" ~ active_section ~ ".html" %}
+        <section class="section" id="{{ active_section }}" aria-label="{{ section_title }}">
+          {{ section_content }}
+        </section>
         <footer class="footer">Vitaly Greck · Resume</footer>
       </main>
     </div>
