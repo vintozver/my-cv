@@ -12,6 +12,17 @@
   review. The PDF version is digitally signed, allowing its signature and integrity
   to be verified.
 
+## Skydive Toledo manifest system
+
+Together with James Robinson, implemented a local manifest system with secure,
+limited read-only access from outside the site. It tracks active jumpers and shows
+the current load board and aircraft status. [Project details](/projects/skydive-toledo-manifest)
+
+## Winds and temperatures aloft display for Skydive Toledo
+
+A dedicated display brings trusted weather updates to jumpers so they can check
+current conditions. [Project details](/projects/skydive-toledo-winds-temperatures)
+
 ## EU Accounting
 
 *System Architect & Lead Software Developer · 2013 onward*

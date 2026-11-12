@@ -77,6 +77,20 @@ class ResumeTests(unittest.TestCase):
             b"https://github.com/features/copilot",
         ):
             self.assertIn(technology_url, projects.data)
+        for project_id, title in (
+            ("skydive-toledo-manifest", b"Skydive Toledo manifest system"),
+            (
+                "skydive-toledo-winds-temperatures",
+                b"Winds and temperatures aloft display for Skydive Toledo",
+            ),
+        ):
+            with self.subTest(project_id=project_id):
+                detail = self.client.get(f"/projects/{project_id}")
+                self.assertEqual(detail.status_code, 200)
+                self.assertIn(title, detail.data)
+        manifest_detail = self.client.get("/projects/skydive-toledo-manifest")
+        self.assertIn(b'<img src="https://manifest.skydivetoledo.com/"', manifest_detail.data)
+        self.assertEqual(self.client.get("/projects/missing").status_code, 404)
         self.assertEqual(self.client.get("/missing").status_code, 404)
 
         with tempfile.TemporaryDirectory() as directory:
@@ -123,11 +137,23 @@ class ResumeTests(unittest.TestCase):
         for heading in (
             "Engineering thoughtful, dependable software", "Professional experience",
             "Personal statement", "Projects", "Local AI experiments and online resume",
+            "Skydive Toledo manifest system",
+            "Winds and temperatures aloft display for Skydive Toledo",
             "Ollama", "Hugging Face", "multimodal models", "GitHub Copilot",
             "human review", "digitally signed", "Technical skills", "Education",
             "Certifications & awards", "Interests", "More commercial and independent projects",
         ):
             self.assertIn(heading, text)
+        self.assertNotIn("Raspberry Pi 4 Model B", text)
+        self.assertNotIn("two-step rollout", text)
+        project_links = [
+            annotation.get_object()["/A"].get("/URI")
+            for page in pdf.pages
+            for annotation in page.get("/Annots", [])
+            if annotation.get_object().get("/A", {}).get("/URI")
+        ]
+        self.assertIn("http://localhost/projects/skydive-toledo-manifest", project_links)
+        self.assertIn("http://localhost/projects/skydive-toledo-winds-temperatures", project_links)
 
         reader = PdfFileReader(BytesIO(response.data))
         self.assertEqual(len(reader.embedded_signatures), 1)

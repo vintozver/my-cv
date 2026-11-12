@@ -28,14 +28,29 @@ SECTION_TITLES = {
     "interests": "Interests",
 }
 
+PROJECT_DETAILS = {
+    "skydive-toledo-manifest": (
+        "Skydive Toledo manifest system",
+        "skydive-toledo-manifest.md",
+    ),
+    "skydive-toledo-winds-temperatures": (
+        "Winds and temperatures aloft display for Skydive Toledo",
+        "skydive-toledo-winds-temperatures.md",
+    ),
+}
+
 SECTION_DIR = Path(__file__).parent / "templates" / "sections"
 STYLE_PATH = Path(__file__).parent / "static" / "style.css"
 MARKDOWN = MarkdownIt("commonmark", {"html": False})
 
 
+def render_markdown(source: str) -> Markup:
+    return Markup(MARKDOWN.render(source))
+
+
 def render_section(section: str) -> Markup:
     source = (SECTION_DIR / f"{section}.md").read_text(encoding="utf-8")
-    return Markup(MARKDOWN.render(source))
+    return render_markdown(source)
 
 
 def load_certificate(config_path: str) -> crypto_x509.Certificate:
@@ -117,6 +132,21 @@ def create_app() -> Flask:
             active_section=section,
             section_title=SECTION_TITLES[section],
             section_content=render_section(section),
+            sections=SECTION_TITLES,
+        )
+
+    @app.get("/projects/<project_id>")
+    def project_page(project_id: str):
+        project = PROJECT_DETAILS.get(project_id)
+        if project is None:
+            abort(404)
+        title, filename = project
+        source = (SECTION_DIR / filename).read_text(encoding="utf-8")
+        return render_template(
+            "index.html",
+            active_section="projects",
+            section_title=title,
+            section_content=render_markdown(source),
             sections=SECTION_TITLES,
         )
 
