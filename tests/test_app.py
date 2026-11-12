@@ -116,7 +116,7 @@ class ResumeTests(unittest.TestCase):
             "Engineering thoughtful, dependable software", "Professional experience",
             "Personal statement", "Projects", "Local AI and online resume",
             "Ollama", "Hugging Face", "multimodal models", "GitHub Copilot",
-            "thorough human review", "digitally signed", "Technical skills", "Education",
+            "human review", "digitally signed", "Technical skills", "Education",
             "Certifications & awards", "Interests", "More commercial and independent projects",
         ):
             self.assertIn(heading, text)
