@@ -11,7 +11,7 @@ python -m pip install .
 PYTHONPATH=src python -m flask --app my_cv.app run
 ```
 
-Open <http://127.0.0.1:5000/>. Edit `src/my_cv/templates/index.html` to add your resume content and `src/my_cv/static/style.css` to customize its appearance.
+Open <http://127.0.0.1:5000/>. The resume is organized into sections with in-page navigation. Edit `src/my_cv/templates/index.html` to update its content and `src/my_cv/static/style.css` to customize its appearance.
 
 ## WSGI deployment
 

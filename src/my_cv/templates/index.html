@@ -3,24 +3,367 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Your Name | CV</title>
+    <meta
+      name="description"
+      content="Resume of Vitaly Greck, principal software engineer and technical leader."
+    >
+    <title>Vitaly Greck | Principal Software Engineer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
-    <main class="cv">
-      <header>
-        <p class="eyebrow">Curriculum vitae</p>
-        <h1>Your Name</h1>
-        <p class="summary">A short professional introduction goes here.</p>
-      </header>
-      <section aria-labelledby="about-heading">
-        <h2 id="about-heading">About</h2>
-        <p>Replace this starter content with your own resume.</p>
-      </section>
-      <section aria-labelledby="experience-heading">
-        <h2 id="experience-heading">Experience</h2>
-        <p>Add your work experience, education, and skills here.</p>
-      </section>
-    </main>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page">
+      <aside class="sidebar">
+        <header class="identity">
+          <p class="eyebrow">Resume</p>
+          <h1>Vitaly Greck</h1>
+          <p class="role">Principal Software Engineer</p>
+          <p class="location">Kent, Washington</p>
+          <div class="profile-links" aria-label="Professional profiles">
+            <a href="https://www.linkedin.com/in/vintozver">LinkedIn</a>
+            <a href="https://github.com/vintozver">GitHub</a>
+            <a href="https://stackoverflow.com/users/884077/vitaly-greck">Stack Overflow</a>
+          </div>
+        </header>
+
+        <nav class="section-nav" aria-label="Resume sections">
+          <p class="nav-label">On this page</p>
+          <ul>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Selected projects</a></li>
+            <li><a href="#skills">Technical skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#credentials">Certifications</a></li>
+            <li><a href="#interests">Interests</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main id="main">
+        <section class="section" id="profile" aria-labelledby="profile-heading">
+          <p class="eyebrow">Profile</p>
+          <h2 id="profile-heading">Engineering thoughtful, dependable software</h2>
+          <p class="intro">
+            Software engineer and technical leader with experience spanning real-time
+            communications, distributed platforms, healthcare, security, and cloud services.
+            Combines hands-on development with system design, mentoring, and cross-team delivery.
+          </p>
+          <p>
+            At Microsoft, has contributed to Skype for Business and Teams, including
+            authentication and privacy improvements, service infrastructure, and highly available
+            communications systems. Earlier work includes leading teams, designing web platforms,
+            and developing embedded telecommunications software.
+          </p>
+          <div class="highlights" aria-label="Areas of experience">
+            <span>Technical leadership</span>
+            <span>System architecture</span>
+            <span>Security &amp; authentication</span>
+            <span>Distributed systems</span>
+            <span>Real-time communications</span>
+          </div>
+        </section>
+
+        <section class="section" id="experience" aria-labelledby="experience-heading">
+          <p class="eyebrow">Career</p>
+          <h2 id="experience-heading">Professional experience</h2>
+          <p class="section-note">
+            Some engagements overlapped, as noted in the original resume.
+          </p>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>Principal Software Engineer</h3>
+                <p class="organization">Microsoft Corporation</p>
+              </div>
+              <p class="date">October 2016 – Present</p>
+            </div>
+            <p class="context">Skype for Business, Skype, and Microsoft Teams</p>
+            <ul>
+              <li>
+                Helped deliver a corporation-wide initiative to eliminate high-privilege access
+                across services and teams.
+              </li>
+              <li>
+                Replaced authentication components with a fail-safe design and improved security,
+                privacy compliance, monitoring, and review practices across eight services.
+              </li>
+              <li>
+                Designed and implemented highly available call processing and forwarding for
+                Teams, including interoperability scenarios.
+              </li>
+              <li>
+                Contributed to .NET Framework-to-.NET Core migration, Teams infrastructure,
+                server-to-server latency improvements, and distributed diagnostics.
+              </li>
+              <li>
+                Promoted maintainable engineering practices through design guidance, documentation,
+                and thorough code reviews.
+              </li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>Lead Software Developer</h3>
+                <p class="organization">XIM Inc. for Anomali Inc.</p>
+              </div>
+              <p class="date">July 2016 – October 2016</p>
+            </div>
+            <p class="context">Online network-activity analysis system</p>
+            <ul>
+              <li>
+                Led improvements to system design, build, and deployment; developed log
+                collection, service monitoring, recovery, failover, and fast-startup features.
+              </li>
+              <li>
+                Reduced deployment time from 20 minutes to 5 with a GNU Make-based build and
+                deployment process, and introduced continuous integration.
+              </li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>Lead Software Developer</h3>
+                <p class="organization">XIM Inc. for Satellite Healthcare</p>
+              </div>
+              <p class="date">February 2015 – June 2016</p>
+            </div>
+            <p class="context">Medical application development</p>
+            <ul>
+              <li>
+                Led and mentored a team of eight, contributing to application design, feature
+                delivery, issue resolution, and deployment.
+              </li>
+              <li>
+                Supported Scrum planning and estimation, an ITIL process migration, and work toward
+                Electronic Health Record Meaningful Use Certification.
+              </li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>System Architect &amp; Lead Software Developer</h3>
+                <p class="organization">Zaochnik Inc.</p>
+              </div>
+              <p class="date">September 2014 – February 2015</p>
+            </div>
+            <p class="context">Student collaboration and tutoring platform</p>
+            <ul>
+              <li>
+                Planned features with Scrum and developed online chat and real-time email
+                notifications.
+              </li>
+              <li>
+                Reworked internal infrastructure, including a virtual-machine cluster, backup
+                workflows, and networked proxies.
+              </li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>Chief Technical Officer</h3>
+                <p class="organization">XIM Inc. / Infotechnology LLC</p>
+              </div>
+              <p class="date">April 2010 – February 2015</p>
+            </div>
+            <ul>
+              <li>
+                Led technical planning, resource allocation, reporting, project management, and
+                engineering decisions.
+              </li>
+              <li>
+                Architected and built cloud-based Python platforms and commercial web products;
+                trained students in Java, C/C++, and Python development.
+              </li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>Senior Software Engineer</h3>
+                <p class="organization">XIM Inc. / Infotechnology LLC</p>
+              </div>
+              <p class="date">April 2007 – April 2010</p>
+            </div>
+            <p>
+              Contributed to internal and client projects across web applications, enterprise
+              systems, mobile software, and telecommunications.
+            </p>
+          </article>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>Software Engineer</h3>
+                <p class="organization">MPOVT JSC</p>
+              </div>
+              <p class="date">August 2005 – April 2010</p>
+            </div>
+            <p>
+              Developed software for telecommunications equipment, including switching engines,
+              multiplexers, routers, embedded systems, and real-time billing.
+            </p>
+          </article>
+
+          <article class="entry">
+            <div class="entry-heading">
+              <div>
+                <h3>Telecommunication Specialist</h3>
+                <p class="organization">Military service</p>
+              </div>
+              <p class="date">January 2006 – January 2007</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="section" id="projects" aria-labelledby="projects-heading">
+          <p class="eyebrow">Selected work</p>
+          <h2 id="projects-heading">Projects</h2>
+          <article class="project">
+            <h3>EU Accounting</h3>
+            <p class="project-meta">System Architect &amp; Lead Software Developer · 2013 onward</p>
+            <p>
+              Designed an online accounting and financial-reporting tool integrated with tax,
+              customs, and banking authorities. Also integrated a Magento store with Authorize.Net
+              and PayPal.
+            </p>
+          </article>
+          <article class="project">
+            <h3>XSF social application platform</h3>
+            <p class="project-meta">System Architect &amp; Lead Software Developer · 2011–2015</p>
+            <p>
+              Designed and built a high-availability Python platform for web and REST-based social
+              applications, with shared web, storage, scheduling, caching, and persistence services.
+            </p>
+          </article>
+          <article class="project">
+            <h3>HiBCN apartment-booking website</h3>
+            <p class="project-meta">System Architect &amp; Lead Software Developer · 2009–2015</p>
+            <p>
+              Designed booking and checkout flows, payment options, administration tools, and
+              automated notifications.
+            </p>
+          </article>
+          <article class="project">
+            <h3>Automated order collection system</h3>
+            <p class="project-meta">System Architect &amp; Lead Software Developer · 2009–2010</p>
+            <p>
+              Built a multi-user, highly available order-processing system with warehouse,
+              accounting, and administration integrations; developed reliable transactional data
+              access.
+            </p>
+          </article>
+          <article class="project">
+            <h3>Telecommunications and embedded systems</h3>
+            <p class="project-meta">Software Engineer · 2005–2010</p>
+            <p>
+              Developed real-time IP, billing, and traffic-monitoring subsystems for telephone
+              switches, embedded routers, and service stations.
+            </p>
+          </article>
+          <details class="more-projects">
+            <summary>More commercial and independent projects</summary>
+            <ul>
+              <li>
+                <strong>Myadel utility billing system (2009–2011):</strong> billing, payments, and
+                PDF invoices for a municipal utility service.
+              </li>
+              <li>
+                <strong>Slide / Google social applications (2009–2010):</strong> server-side
+                features, banner systems, logging, and cross-application integration.
+              </li>
+              <li>
+                <strong>TurboCourt electronic filing:</strong> court document-exchange features and
+                automated build and deployment tools.
+              </li>
+              <li>
+                <strong>Openwave and SoundHound projects:</strong> Java testing and validation,
+                Symbian C++ user interfaces, audio playback, and network connectivity.
+              </li>
+              <li>
+                <strong>Independent projects:</strong> web portals and sites, a SHOUTcast statistics
+                component, a network scanner, mobile-phone control software, and an SS7 MTP2 diploma
+                project.
+              </li>
+            </ul>
+          </details>
+        </section>
+
+        <section class="section" id="skills" aria-labelledby="skills-heading">
+          <p class="eyebrow">Capabilities</p>
+          <h2 id="skills-heading">Technical skills</h2>
+          <dl class="skills">
+            <div>
+              <dt>Languages</dt>
+              <dd>C, C++, C#, Python, Java, JavaScript, PHP</dd>
+            </div>
+            <div>
+              <dt>Architecture</dt>
+              <dd>Distributed and high-availability systems, service design, REST, real-time systems</dd>
+            </div>
+            <div>
+              <dt>Platforms &amp; frameworks</dt>
+              <dd>.NET, ASP.NET MVC, gevent, gunicorn, Java EE, IIS, Apache, nginx</dd>
+            </div>
+            <div>
+              <dt>Data &amp; messaging</dt>
+              <dd>SQL Server, PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch, SIP</dd>
+            </div>
+            <div>
+              <dt>Engineering practices</dt>
+              <dd>Technical leadership, system design, mentoring, CI, deployment, code review</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="section" id="education" aria-labelledby="education-heading">
+          <p class="eyebrow">Education</p>
+          <h2 id="education-heading">Education</h2>
+          <article class="entry education">
+            <div class="entry-heading">
+              <div>
+                <h3>Bachelor’s degree in Software Engineering</h3>
+                <p class="organization">Belarusian State University of Informatics and Radioelectronics</p>
+              </div>
+              <p class="date">2000–2005</p>
+            </div>
+            <p>Faculty of Computer Systems and Networks</p>
+          </article>
+        </section>
+
+        <section class="section" id="credentials" aria-labelledby="credentials-heading">
+          <p class="eyebrow">Professional development</p>
+          <h2 id="credentials-heading">Certifications &amp; awards</h2>
+          <ul class="credential-list">
+            <li>FAA Private Pilot, Airplane Single-Engine Land (ASEL), instrument rating · 2021</li>
+            <li>USPA Skydiving D License and Coach Rating · 2016</li>
+            <li>FAA Senior Parachute Rigger, back and seat ratings · 2011</li>
+            <li>MongoDB for Developers (M101), 100% pass · 2012</li>
+            <li>MongoDB for DBAs (M102), 100% pass · 2012</li>
+            <li>Brainbench Unix Administration (General) · 2012</li>
+            <li>Brainbench Networking · 2013</li>
+          </ul>
+        </section>
+
+        <section class="section" id="interests" aria-labelledby="interests-heading">
+          <p class="eyebrow">Beyond work</p>
+          <h2 id="interests-heading">Interests</h2>
+          <p>
+            Aviation, parachuting and skydiving, parachute rigging, fitness, and electronic music.
+          </p>
+        </section>
+        <footer class="footer">Vitaly Greck · Resume</footer>
+      </main>
+    </div>
   </body>
 </html>
