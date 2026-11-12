@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-cv"
+version = "0.1.0"
+description = "A WSGI-ready CV website"
+dependencies = ["Flask", "Jinja2"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+my_cv = ["templates/*.html", "static/*.css"]
