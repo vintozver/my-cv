@@ -7,7 +7,7 @@
       name="description"
       content="Resume of Vitaly Greck, principal software engineer and technical leader."
     >
-    <title>Vitaly Greck | Principal Software Engineer</title>
+    <title>Vitaly Greck | {{ section_title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
@@ -27,20 +27,28 @@
         </header>
 
         <nav class="section-nav" aria-label="Resume sections">
-          <p class="nav-label">On this page</p>
+          <p class="nav-label">Resume sections</p>
           <ul>
-            <li><a href="#profile">Profile</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Selected projects</a></li>
-            <li><a href="#skills">Technical skills</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#credentials">Certifications</a></li>
-            <li><a href="#interests">Interests</a></li>
+            {% for section, title in [
+              ("profile", "Profile"),
+              ("experience", "Experience"),
+              ("projects", "Selected projects"),
+              ("skills", "Technical skills"),
+              ("education", "Education"),
+              ("credentials", "Certifications"),
+              ("interests", "Interests")
+            ] %}
+              <li>
+                <a href="{{ url_for('section_page', section=section) }}"
+                   {% if active_section == section %}aria-current="page"{% endif %}>{{ title }}</a>
+              </li>
+            {% endfor %}
           </ul>
         </nav>
       </aside>
 
       <main id="main">
+        {% if active_section == "profile" %}
         <section class="section" id="profile" aria-labelledby="profile-heading">
           <p class="eyebrow">Profile</p>
           <h2 id="profile-heading">Engineering thoughtful, dependable software</h2>
@@ -63,7 +71,9 @@
             <span>Real-time communications</span>
           </div>
         </section>
+        {% endif %}
 
+        {% if active_section == "experience" %}
         <section class="section" id="experience" aria-labelledby="experience-heading">
           <p class="eyebrow">Career</p>
           <h2 id="experience-heading">Professional experience</h2>
@@ -225,7 +235,9 @@
             </div>
           </article>
         </section>
+        {% endif %}
 
+        {% if active_section == "projects" %}
         <section class="section" id="projects" aria-labelledby="projects-heading">
           <p class="eyebrow">Selected work</p>
           <h2 id="projects-heading">Projects</h2>
@@ -298,7 +310,9 @@
             </ul>
           </details>
         </section>
+        {% endif %}
 
+        {% if active_section == "skills" %}
         <section class="section" id="skills" aria-labelledby="skills-heading">
           <p class="eyebrow">Capabilities</p>
           <h2 id="skills-heading">Technical skills</h2>
@@ -325,7 +339,9 @@
             </div>
           </dl>
         </section>
+        {% endif %}
 
+        {% if active_section == "education" %}
         <section class="section" id="education" aria-labelledby="education-heading">
           <p class="eyebrow">Education</p>
           <h2 id="education-heading">Education</h2>
@@ -340,7 +356,9 @@
             <p>Faculty of Computer Systems and Networks</p>
           </article>
         </section>
+        {% endif %}
 
+        {% if active_section == "credentials" %}
         <section class="section" id="credentials" aria-labelledby="credentials-heading">
           <p class="eyebrow">Professional development</p>
           <h2 id="credentials-heading">Certifications &amp; awards</h2>
@@ -354,7 +372,9 @@
             <li>Brainbench Networking · 2013</li>
           </ul>
         </section>
+        {% endif %}
 
+        {% if active_section == "interests" %}
         <section class="section" id="interests" aria-labelledby="interests-heading">
           <p class="eyebrow">Beyond work</p>
           <h2 id="interests-heading">Interests</h2>
@@ -362,6 +382,7 @@
             Aviation, parachuting and skydiving, parachute rigging, fitness, and electronic music.
           </p>
         </section>
+        {% endif %}
         <footer class="footer">Vitaly Greck · Resume</footer>
       </main>
     </div>
