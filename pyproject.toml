@@ -12,4 +12,4 @@ dependencies = ["Flask", "Jinja2"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-my_cv = ["templates/*.html", "static/*.css"]
+my_cv = ["templates/*.html", "templates/sections/*.html", "static/*.css"]
