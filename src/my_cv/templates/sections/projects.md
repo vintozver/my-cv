@@ -1,5 +1,12 @@
 # Projects
 
+## Local AI and online resume
+
+Experimented with local AI deployment and tooling using Ollama and Hugging Face,
+including multimodal models. Built this online resume entirely with GitHub Copilot,
+followed by thorough human review. Its PDF version is digitally signed so recipients
+can verify the signature and document integrity.
+
 ## EU Accounting
 
 *System Architect & Lead Software Developer · 2013 onward*

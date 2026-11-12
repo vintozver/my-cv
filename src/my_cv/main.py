@@ -19,6 +19,7 @@ from weasyprint import CSS, HTML
 
 SECTION_TITLES = {
     "profile": "Profile",
+    "personal-statement": "Personal statement",
     "experience": "Experience",
     "projects": "Selected projects",
     "skills": "Technical skills",
