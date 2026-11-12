@@ -9,16 +9,46 @@
     <header>
       <h1>Vitaly Greck</h1>
       <p>Principal Software Engineer · Kent, Washington</p>
+      <p>Generated: {{ generated_at }}</p>
       <p>
         <a href="https://www.linkedin.com/in/vintozver">LinkedIn</a> ·
         <a href="https://github.com/vintozver">GitHub</a> ·
         <a href="https://stackoverflow.com/users/884077/vitaly-greck">Stack Overflow</a>
       </p>
+      <p><a href="#signature-details">Signature and certificate details</a></p>
     </header>
     <main>
       {% for section, content in sections %}
         <section class="section" id="{{ section }}">{{ content }}</section>
       {% endfor %}
+      <section class="signature-details" id="signature-details">
+        <h1>PDF signature and certificate details</h1>
+        <p>Generated: {{ generated_at }}</p>
+        <dl>
+          <dt>Subject</dt>
+          <dd>{{ cert_details.subject }}</dd>
+          <dt>Issuer</dt>
+          <dd>{{ cert_details.issuer }}</dd>
+          <dt>Serial number</dt>
+          <dd>{{ cert_details.serial_number }}</dd>
+          <dt>Valid from</dt>
+          <dd>{{ cert_details.not_before }}</dd>
+          <dt>Valid until</dt>
+          <dd>{{ cert_details.not_after }}</dd>
+          <dt>SHA-256 fingerprint</dt>
+          <dd>{{ cert_details.sha256_fingerprint }}</dd>
+        </dl>
+        <p>
+          The certificate public key is available at
+          <a href="https://www.vitaly-greck.us/.well-known/pki/pub">
+            https://www.vitaly-greck.us/.well-known/pki/pub
+          </a>.
+        </p>
+        <p>
+          Validate this PDF signature with standard PDF signature tools, such as
+          <code>pdfsig</code> or Adobe Acrobat Reader.
+        </p>
+      </section>
     </main>
   </body>
 </html>

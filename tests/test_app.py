@@ -47,6 +47,9 @@ class ResumeTests(unittest.TestCase):
             .sign(key, hashes.SHA256())
         )
         cls.public_pem = certificate.public_bytes(serialization.Encoding.PEM).decode()
+        cls.public_key_pem = certificate.public_key().public_bytes(
+            serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo
+        )
         cls.private_pem = key.private_bytes(
             serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
             serialization.NoEncryption(),
@@ -85,8 +88,12 @@ class ResumeTests(unittest.TestCase):
                 "public": self.public_pem, "private": self.private_pem,
             }}), encoding="utf-8")
             with patch.dict(os.environ, {"MY_CV_CONFIG": str(config)}):
+                key_response = self.client.get("/.well-known/pki/pub")
                 response = self.client.get("/resume.pdf")
 
+        self.assertEqual(key_response.status_code, 200)
+        self.assertEqual(key_response.data, self.public_key_pem)
+        self.assertEqual(key_response.mimetype, "text/plain")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.mimetype, "application/pdf")
         self.assertIn("attachment", response.headers["Content-Disposition"])
@@ -96,6 +103,14 @@ class ResumeTests(unittest.TestCase):
         pages = [page.extract_text() for page in pdf.pages]
         for page in pages:
             self.assertIn("Vitaly Greck · Resume", page)
+        self.assertIn("Generated:", pages[0])
+        self.assertIn("Signature and certificate details", pages[0])
+        self.assertIn("PDF signature and certificate details", pages[-1])
+        self.assertIn("signer", pages[-1])
+        self.assertIn("SHA-256 fingerprint", pages[-1])
+        self.assertIn("https://www.vitaly-greck.us/.well-known/pki/pub", pages[-1])
+        self.assertIn("pdfsig", pages[-1])
+        self.assertNotIn("PDF signature and certificate details", pages[-2])
         text = "\n".join(pages)
         for heading in (
             "Engineering thoughtful, dependable software", "Professional experience",
@@ -119,6 +134,7 @@ class ResumeTests(unittest.TestCase):
             config = Path(directory, "config.yaml")
             with patch.dict(os.environ, {"MY_CV_CONFIG": str(config)}):
                 self.assertEqual(self.client.get("/resume.pdf").status_code, 503)
+                self.assertEqual(self.client.get("/.well-known/pki/pub").status_code, 503)
                 config.write_text("certificate: []", encoding="utf-8")
                 self.assertEqual(self.client.get("/resume.pdf").status_code, 503)
                 other_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)

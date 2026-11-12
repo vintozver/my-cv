@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timezone
 from io import BytesIO
 from pathlib import Path
 
@@ -6,8 +7,8 @@ import yaml
 from asn1crypto import keys, x509
 from cryptography import x509 as crypto_x509
 from cryptography.exceptions import UnsupportedAlgorithm
-from cryptography.hazmat.primitives import serialization
-from flask import Flask, abort, redirect, render_template, send_file, url_for
+from cryptography.hazmat.primitives import hashes, serialization
+from flask import Flask, Response, abort, redirect, render_template, send_file, url_for
 from markdown_it import MarkdownIt
 from markupsafe import Markup
 from pyhanko.pdf_utils.incremental_writer import IncrementalPdfFileWriter
@@ -36,14 +37,23 @@ def render_section(section: str) -> Markup:
     return Markup(MARKDOWN.render(source))
 
 
-def load_signer(config_path: str) -> signers.SimpleSigner:
+def load_certificate(config_path: str) -> crypto_x509.Certificate:
     try:
         with open(config_path, encoding="utf-8") as config_file:
             config = yaml.safe_load(config_file)
-        certificate = config["certificate"]
-        public_pem = certificate["public"].encode("utf-8")
-        private_pem = certificate["private"].encode("utf-8")
-        cert = crypto_x509.load_pem_x509_certificate(public_pem)
+        public_pem = config["certificate"]["public"].encode("utf-8")
+        return crypto_x509.load_pem_x509_certificate(public_pem)
+    except (OSError, yaml.YAMLError, KeyError, TypeError, AttributeError,
+            ValueError, UnsupportedAlgorithm) as exc:
+        raise ValueError("Invalid PDF signing configuration") from exc
+
+
+def load_signer(config_path: str) -> tuple[signers.SimpleSigner, crypto_x509.Certificate]:
+    try:
+        cert = load_certificate(config_path)
+        with open(config_path, encoding="utf-8") as config_file:
+            config = yaml.safe_load(config_file)
+        private_pem = config["certificate"]["private"].encode("utf-8")
         key = serialization.load_pem_private_key(private_pem, password=None)
         public_key = cert.public_key().public_bytes(
             serialization.Encoding.DER, serialization.PublicFormat.SubjectPublicKeyInfo
@@ -59,10 +69,13 @@ def load_signer(config_path: str) -> signers.SimpleSigner:
             serialization.PrivateFormat.PKCS8,
             serialization.NoEncryption(),
         )
-        return signers.SimpleSigner(
-            signing_cert=x509.Certificate.load(cert_der),
-            signing_key=keys.PrivateKeyInfo.load(key_der),
-            cert_registry=SimpleCertificateStore(),
+        return (
+            signers.SimpleSigner(
+                signing_cert=x509.Certificate.load(cert_der),
+                signing_key=keys.PrivateKeyInfo.load(key_der),
+                cert_registry=SimpleCertificateStore(),
+            ),
+            cert,
         )
     except (OSError, yaml.YAMLError, KeyError, TypeError, AttributeError,
             ValueError, UnsupportedAlgorithm) as exc:
@@ -80,6 +93,20 @@ def create_app() -> Flask:
     def index():
         return redirect(url_for("section_page", section="profile"))
 
+    @app.get("/.well-known/pki/pub")
+    def public_key():
+        config_path = os.environ.get("MY_CV_CONFIG", "config.yaml")
+        try:
+            cert = load_certificate(config_path)
+        except ValueError:
+            app.logger.error("PDF signing certificate is missing or invalid")
+            abort(503, description="PDF signing is not configured.")
+        public_key_pem = cert.public_key().public_bytes(
+            serialization.Encoding.PEM,
+            serialization.PublicFormat.SubjectPublicKeyInfo,
+        )
+        return Response(public_key_pem, mimetype="text/plain")
+
     @app.get("/<section>")
     def section_page(section: str):
         if section not in SECTION_TITLES:
@@ -96,14 +123,25 @@ def create_app() -> Flask:
     def download_pdf():
         config_path = os.environ.get("MY_CV_CONFIG", "config.yaml")
         try:
-            signer = load_signer(config_path)
+            signer, cert = load_signer(config_path)
         except ValueError:
             app.logger.error("PDF signing configuration is missing or invalid")
             abort(503, description="PDF signing is not configured.")
 
+        generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        cert_details = {
+            "subject": cert.subject.rfc4514_string(),
+            "issuer": cert.issuer.rfc4514_string(),
+            "serial_number": format(cert.serial_number, "X"),
+            "not_before": cert.not_valid_before_utc.strftime("%Y-%m-%d %H:%M:%S UTC"),
+            "not_after": cert.not_valid_after_utc.strftime("%Y-%m-%d %H:%M:%S UTC"),
+            "sha256_fingerprint": cert.fingerprint(hashes.SHA256()).hex(),
+        }
         html = render_template(
             "resume_pdf.html",
             sections=[(section, render_section(section)) for section in SECTION_TITLES],
+            generated_at=generated_at,
+            cert_details=cert_details,
         )
         pdf = HTML(string=html, url_fetcher=reject_pdf_url).write_pdf(
             stylesheets=[CSS(string=STYLE_PATH.read_text(encoding="utf-8"))]

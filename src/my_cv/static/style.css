@@ -440,6 +440,20 @@ li + li {
     break-after: avoid;
   }
 
+  .resume-pdf .signature-details {
+    break-before: page;
+  }
+
+  .resume-pdf .signature-details dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem 1rem;
+  }
+
+  .resume-pdf .signature-details dd {
+    margin: 0;
+  }
+
   .resume-pdf .watermark {
     position: fixed;
     top: 45%;
