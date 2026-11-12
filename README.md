@@ -11,7 +11,7 @@ python -m pip install .
 PYTHONPATH=src python -m flask --app my_cv.app run
 ```
 
-Open <http://127.0.0.1:5000/>. Each resume section renders on its own page, with shared navigation between `/profile`, `/experience`, `/projects`, `/skills`, `/education`, `/credentials`, and `/interests`. The home page redirects to `/profile`. Edit `src/my_cv/templates/index.html` to update the content and `src/my_cv/static/style.css` to customize its appearance.
+Open <http://127.0.0.1:5000/>. Each resume section renders on its own page, with shared navigation between `/profile`, `/experience`, `/projects`, `/skills`, `/education`, `/credentials`, and `/interests`. The home page redirects to `/profile`. Edit the section templates in `src/my_cv/templates/sections/` to update resume content, `src/my_cv/templates/index.html` to update the shared layout and navigation, and `src/my_cv/static/style.css` to customize its appearance.
 
 ## WSGI deployment
 
