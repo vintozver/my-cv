@@ -1,11 +1,16 @@
 # Projects
 
-## Local AI and online resume
+## Local AI experiments and online resume
 
-Experimented with local AI deployment and tooling using Ollama and Hugging Face,
-including multimodal models. Built this online resume entirely with GitHub Copilot,
-followed by thorough human review. Its PDF version is digitally signed so recipients
-can verify the signature and document integrity.
+- **Local inference:** Used [Ollama](https://ollama.com/) to experiment with deploying
+  and running AI models locally, along with the tooling around local inference.
+- **Models and tooling:** Explored models and developer resources on
+  [Hugging Face](https://huggingface.co/), including multimodal models and the
+  [Transformers library](https://huggingface.co/docs/transformers/index).
+- **This resume:** Implemented the online resume entirely with
+  [GitHub Copilot](https://github.com/features/copilot), then gave it thorough human
+  review. The PDF version is digitally signed, allowing its signature and integrity
+  to be verified.
 
 ## EU Accounting
 

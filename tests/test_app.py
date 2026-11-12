@@ -69,6 +69,14 @@ class ResumeTests(unittest.TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertIn(b'href="/resume.pdf"', response.data)
                 self.assertIn(b"<h1>", response.data)
+        projects = self.client.get("/projects")
+        for technology_url in (
+            b"https://ollama.com/",
+            b"https://huggingface.co/",
+            b"https://huggingface.co/docs/transformers/index",
+            b"https://github.com/features/copilot",
+        ):
+            self.assertIn(technology_url, projects.data)
         self.assertEqual(self.client.get("/missing").status_code, 404)
 
         with tempfile.TemporaryDirectory() as directory:
@@ -114,7 +122,7 @@ class ResumeTests(unittest.TestCase):
         text = "\n".join(pages)
         for heading in (
             "Engineering thoughtful, dependable software", "Professional experience",
-            "Personal statement", "Projects", "Local AI and online resume",
+            "Personal statement", "Projects", "Local AI experiments and online resume",
             "Ollama", "Hugging Face", "multimodal models", "GitHub Copilot",
             "human review", "digitally signed", "Technical skills", "Education",
             "Certifications & awards", "Interests", "More commercial and independent projects",
