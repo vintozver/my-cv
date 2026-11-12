@@ -169,6 +169,15 @@ main {
   scroll-margin-top: 2rem;
 }
 
+.section img {
+  display: block;
+  max-width: 100%;
+  max-height: 60vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 .section + .section {
   padding-top: 2.6rem;
   border-top: 1px solid var(--line);
