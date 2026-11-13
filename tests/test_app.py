@@ -101,9 +101,10 @@ class ResumeTests(unittest.TestCase):
             self.assertIn(project_detail, registrar_detail.data)
         education = self.client.get("/education")
         self.assertIn(
-            b'href="https://www.bsuir.by/en/academic-department-of-software-for-information-technologies"',
+            b'<a href="https://www.bsuir.by/en/academic-department-of-software-for-information-technologies">Faculty of Computer Systems and Networks</a>',
             education.data,
         )
+        self.assertIn(b"<strong>Belarusian State University of Informatics and Radioelectronics</strong>", education.data)
         interests = self.client.get("/interests")
         for photo_url in (
             b"https://github.com/user-attachments/assets/798a8c2e-9d7e-4e21-8522-186edb27d135",
