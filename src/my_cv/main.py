@@ -29,6 +29,10 @@ SECTION_TITLES = {
 }
 
 PROJECT_DETAILS = {
+    "pi-registrar": (
+        "pi_registrar — authenticated IP address registrar",
+        "pi-registrar.md",
+    ),
     "skydive-toledo-manifest": (
         "Skydive Toledo manifest system",
         "skydive-toledo-manifest.md",
@@ -132,6 +136,17 @@ def create_app() -> Flask:
             active_section=section,
             section_title=SECTION_TITLES[section],
             section_content=render_section(section),
+            sections=SECTION_TITLES,
+        )
+
+    @app.get("/home-improvement")
+    def home_improvement_page():
+        source = (SECTION_DIR / "home-improvement.md").read_text(encoding="utf-8")
+        return render_template(
+            "index.html",
+            active_section="home-improvement",
+            section_title="Home improvement",
+            section_content=render_markdown(source),
             sections=SECTION_TITLES,
         )
 

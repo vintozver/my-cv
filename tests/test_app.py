@@ -75,9 +75,11 @@ class ResumeTests(unittest.TestCase):
             b"https://huggingface.co/",
             b"https://huggingface.co/docs/transformers/index",
             b"https://github.com/features/copilot",
+            b"/projects/pi-registrar",
         ):
             self.assertIn(technology_url, projects.data)
         for project_id, title in (
+            ("pi-registrar", b"pi_registrar"),
             ("skydive-toledo-manifest", b"Skydive Toledo manifest system"),
             (
                 "skydive-toledo-winds-temperatures",
@@ -88,6 +90,43 @@ class ResumeTests(unittest.TestCase):
                 detail = self.client.get(f"/projects/{project_id}")
                 self.assertEqual(detail.status_code, 200)
                 self.assertIn(title, detail.data)
+        registrar_detail = self.client.get("/projects/pi-registrar")
+        for project_detail in (
+            b"https://github.com/vintozver/pi_registrar/",
+            b"certificate identities",
+            b"SQLite",
+            b"dnspython",
+            b"systemd",
+        ):
+            self.assertIn(project_detail, registrar_detail.data)
+        education = self.client.get("/education")
+        self.assertIn(
+            b'<a href="https://www.bsuir.by/en/academic-department-of-software-for-information-technologies">Faculty of Computer Systems and Networks</a>',
+            education.data,
+        )
+        self.assertIn(b"<strong>Belarusian State University of Informatics and Radioelectronics</strong>", education.data)
+        interests = self.client.get("/interests")
+        self.assertIn(b'href="/home-improvement"', interests.data)
+        self.assertNotIn(b"porcelain tile", interests.data)
+        home_improvement = self.client.get("/home-improvement")
+        self.assertEqual(home_improvement.status_code, 200)
+        self.assertIn(b"porcelain tile", home_improvement.data)
+        self.assertIn(b"I choose quality", home_improvement.data)
+        self.assertIn(b"over quantity", home_improvement.data)
+        for index in range(1, 4):
+            thumbnail_url = f"/static/home-improvement-{index}-thumb.jpg".encode()
+            original_url = f"/static/home-improvement-{index}.jpg".encode()
+            self.assertIn(
+                b'<a href="' + original_url + b'"><img src="' + thumbnail_url,
+                home_improvement.data,
+            )
+            for image_url in (thumbnail_url, original_url):
+                image_response = self.client.get(image_url.decode())
+                try:
+                    self.assertEqual(image_response.status_code, 200)
+                    self.assertEqual(image_response.mimetype, "image/jpeg")
+                finally:
+                    image_response.close()
         manifest_detail = self.client.get("/projects/skydive-toledo-manifest")
         self.assertIn(b'<img src="https://manifest.skydivetoledo.com/"', manifest_detail.data)
         self.assertEqual(self.client.get("/projects/missing").status_code, 404)
@@ -146,6 +185,8 @@ class ResumeTests(unittest.TestCase):
             self.assertIn(heading, text)
         self.assertNotIn("Raspberry Pi 4 Model B", text)
         self.assertNotIn("two-step rollout", text)
+        self.assertNotIn("porcelain tile", text)
+        self.assertNotIn("I choose quality", text)
         project_links = [
             annotation.get_object()["/A"].get("/URI")
             for page in pdf.pages

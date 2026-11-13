@@ -22,4 +22,4 @@ test = ["pypdf"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-my_cv = ["templates/*.html", "templates/sections/*.md", "static/*.css"]
+my_cv = ["templates/*.html", "templates/sections/*.md", "static/*.css", "static/*.jpg"]
