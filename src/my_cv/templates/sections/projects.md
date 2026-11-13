@@ -18,6 +18,12 @@ Together with James Robinson, implemented a local manifest system with secure,
 limited read-only access from outside the site. It tracks active jumpers and shows
 the current load board and aircraft status. [Project details](/projects/skydive-toledo-manifest)
 
+## pi_registrar
+
+Built a certificate-authenticated service for registering hosts’ current IPv4 and IPv6
+addresses, with optional DNS updates and a periodically running client.
+[Project details](/projects/pi-registrar)
+
 ## Winds and temperatures aloft display for Skydive Toledo
 
 A dedicated display brings trusted weather updates to jumpers so they can check

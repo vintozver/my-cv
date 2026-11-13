@@ -29,6 +29,10 @@ SECTION_TITLES = {
 }
 
 PROJECT_DETAILS = {
+    "pi-registrar": (
+        "pi_registrar — authenticated IP address registrar",
+        "pi-registrar.md",
+    ),
     "skydive-toledo-manifest": (
         "Skydive Toledo manifest system",
         "skydive-toledo-manifest.md",

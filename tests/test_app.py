@@ -75,9 +75,11 @@ class ResumeTests(unittest.TestCase):
             b"https://huggingface.co/",
             b"https://huggingface.co/docs/transformers/index",
             b"https://github.com/features/copilot",
+            b"/projects/pi-registrar",
         ):
             self.assertIn(technology_url, projects.data)
         for project_id, title in (
+            ("pi-registrar", b"pi_registrar"),
             ("skydive-toledo-manifest", b"Skydive Toledo manifest system"),
             (
                 "skydive-toledo-winds-temperatures",
@@ -88,6 +90,20 @@ class ResumeTests(unittest.TestCase):
                 detail = self.client.get(f"/projects/{project_id}")
                 self.assertEqual(detail.status_code, 200)
                 self.assertIn(title, detail.data)
+        registrar_detail = self.client.get("/projects/pi-registrar")
+        for project_detail in (
+            b"https://github.com/vintozver/pi_registrar/",
+            b"certificate identities",
+            b"SQLite",
+            b"dnspython",
+            b"systemd",
+        ):
+            self.assertIn(project_detail, registrar_detail.data)
+        education = self.client.get("/education")
+        self.assertIn(
+            b'href="https://www.bsuir.by/en/academic-department-of-software-for-information-technologies"',
+            education.data,
+        )
         manifest_detail = self.client.get("/projects/skydive-toledo-manifest")
         self.assertIn(b'<img src="https://manifest.skydivetoledo.com/"', manifest_detail.data)
         self.assertEqual(self.client.get("/projects/missing").status_code, 404)
