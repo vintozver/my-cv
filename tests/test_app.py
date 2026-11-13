@@ -113,6 +113,20 @@ class ResumeTests(unittest.TestCase):
         self.assertIn(b"porcelain tile", home_improvement.data)
         self.assertIn(b"I choose quality", home_improvement.data)
         self.assertIn(b"over quantity", home_improvement.data)
+        for index in range(1, 4):
+            thumbnail_url = f"/static/home-improvement-{index}-thumb.jpg".encode()
+            original_url = f"/static/home-improvement-{index}.jpg".encode()
+            self.assertIn(
+                b'<a href="' + original_url + b'"><img src="' + thumbnail_url,
+                home_improvement.data,
+            )
+            for image_url in (thumbnail_url, original_url):
+                image_response = self.client.get(image_url.decode())
+                try:
+                    self.assertEqual(image_response.status_code, 200)
+                    self.assertEqual(image_response.mimetype, "image/jpeg")
+                finally:
+                    image_response.close()
         manifest_detail = self.client.get("/projects/skydive-toledo-manifest")
         self.assertIn(b'<img src="https://manifest.skydivetoledo.com/"', manifest_detail.data)
         self.assertEqual(self.client.get("/projects/missing").status_code, 404)
