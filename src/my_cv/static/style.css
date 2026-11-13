@@ -178,32 +178,6 @@ main {
   object-fit: contain;
 }
 
-.section ul:has(img[src^="https://github.com/user-attachments/assets/"]) {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-  gap: 0.75rem;
-  margin: 1.2rem 0;
-  padding: 0;
-  list-style: none;
-}
-
-.section ul:has(img[src^="https://github.com/user-attachments/assets/"]) li {
-  margin: 0;
-}
-
-.section ul:has(img[src^="https://github.com/user-attachments/assets/"]) a {
-  display: block;
-  overflow: hidden;
-  border-radius: 0.5rem;
-}
-
-.section img[src^="https://github.com/user-attachments/assets/"] {
-  width: 100%;
-  height: 12rem;
-  max-height: none;
-  object-fit: cover;
-}
-
 .section + .section {
   padding-top: 2.6rem;
   border-top: 1px solid var(--line);
@@ -487,10 +461,6 @@ li + li {
 
   .resume-pdf .signature-details dd {
     margin: 0;
-  }
-
-  .resume-pdf img[src^="https://github.com/user-attachments/assets/"] {
-    display: none;
   }
 
   .resume-pdf .watermark {

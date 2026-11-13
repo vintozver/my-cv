@@ -106,15 +106,13 @@ class ResumeTests(unittest.TestCase):
         )
         self.assertIn(b"<strong>Belarusian State University of Informatics and Radioelectronics</strong>", education.data)
         interests = self.client.get("/interests")
-        for photo_url in (
-            b"https://github.com/user-attachments/assets/798a8c2e-9d7e-4e21-8522-186edb27d135",
-            b"https://github.com/user-attachments/assets/fb3eb9e2-490e-4516-bc49-3b3994e63e1a",
-            b"https://github.com/user-attachments/assets/0d53e4f7-4bbb-4b83-93df-45ae94912bf7",
-        ):
-            self.assertIn(b'<a href="' + photo_url + b'"><img src="' + photo_url, interests.data)
-        self.assertIn(b"porcelain tile", interests.data)
-        self.assertIn(b"I choose quality", interests.data)
-        self.assertIn(b"over quantity", interests.data)
+        self.assertIn(b'href="/home-improvement"', interests.data)
+        self.assertNotIn(b"porcelain tile", interests.data)
+        home_improvement = self.client.get("/home-improvement")
+        self.assertEqual(home_improvement.status_code, 200)
+        self.assertIn(b"porcelain tile", home_improvement.data)
+        self.assertIn(b"I choose quality", home_improvement.data)
+        self.assertIn(b"over quantity", home_improvement.data)
         manifest_detail = self.client.get("/projects/skydive-toledo-manifest")
         self.assertIn(b'<img src="https://manifest.skydivetoledo.com/"', manifest_detail.data)
         self.assertEqual(self.client.get("/projects/missing").status_code, 404)
@@ -173,6 +171,8 @@ class ResumeTests(unittest.TestCase):
             self.assertIn(heading, text)
         self.assertNotIn("Raspberry Pi 4 Model B", text)
         self.assertNotIn("two-step rollout", text)
+        self.assertNotIn("porcelain tile", text)
+        self.assertNotIn("I choose quality", text)
         project_links = [
             annotation.get_object()["/A"].get("/URI")
             for page in pdf.pages

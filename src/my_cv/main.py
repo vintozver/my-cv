@@ -139,6 +139,17 @@ def create_app() -> Flask:
             sections=SECTION_TITLES,
         )
 
+    @app.get("/home-improvement")
+    def home_improvement_page():
+        source = (SECTION_DIR / "home-improvement.md").read_text(encoding="utf-8")
+        return render_template(
+            "index.html",
+            active_section="home-improvement",
+            section_title="Home improvement",
+            section_content=render_markdown(source),
+            sections=SECTION_TITLES,
+        )
+
     @app.get("/projects/<project_id>")
     def project_page(project_id: str):
         project = PROJECT_DETAILS.get(project_id)
