@@ -104,6 +104,16 @@ class ResumeTests(unittest.TestCase):
             b'href="https://www.bsuir.by/en/academic-department-of-software-for-information-technologies"',
             education.data,
         )
+        interests = self.client.get("/interests")
+        for photo_url in (
+            b"https://github.com/user-attachments/assets/798a8c2e-9d7e-4e21-8522-186edb27d135",
+            b"https://github.com/user-attachments/assets/fb3eb9e2-490e-4516-bc49-3b3994e63e1a",
+            b"https://github.com/user-attachments/assets/0d53e4f7-4bbb-4b83-93df-45ae94912bf7",
+        ):
+            self.assertIn(b'<a href="' + photo_url + b'"><img src="' + photo_url, interests.data)
+        self.assertIn(b"porcelain tile", interests.data)
+        self.assertIn(b"I choose quality", interests.data)
+        self.assertIn(b"over quantity", interests.data)
         manifest_detail = self.client.get("/projects/skydive-toledo-manifest")
         self.assertIn(b'<img src="https://manifest.skydivetoledo.com/"', manifest_detail.data)
         self.assertEqual(self.client.get("/projects/missing").status_code, 404)
