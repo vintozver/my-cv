@@ -11,7 +11,8 @@ against a configured certificate authority before accepting the registration.
   and can optionally update DNS records using authenticated dynamic DNS.
 - **Deployment:** Includes systemd service and timer packages for Debian and Arch
   Linux, so the client can periodically refresh a host’s address.
-- **Technologies:** Python, CherryPy, SQLite, PyJWT, Cryptography, dnspython,
-  PyYAML, systemd, Debian packaging, and Arch Linux packaging.
+- **Core technologies:** Python, CherryPy, HTTPS, X.509/PKI, JWT (PyJWT), SQLite,
+  Cryptography, dnspython, PyYAML, DNS, systemd, Debian packaging, and Arch Linux
+  packaging.
 
 [View the project on GitHub](https://github.com/vintozver/pi_registrar/)

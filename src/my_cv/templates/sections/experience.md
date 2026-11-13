@@ -29,6 +29,10 @@ Some engagements overlapped, as noted in the original resume.
 - Promoted maintainable engineering practices through design guidance, documentation,
   and thorough code reviews.
 
+**Technologies and platforms:** AI inference and tooling, C/C++, .NET and .NET Core,
+Windows Server, Linux, Git, GitHub, Azure, Kubernetes, cloud, RFCs, SIP, HTTP, HTTPS,
+UDP, and TCP.
+
 ## Lead Software Developer
 
 **XIM Inc. for Anomali Inc.** · July 2016 – October 2016
@@ -40,6 +44,8 @@ Some engagements overlapped, as noted in the original resume.
 - Reduced deployment time from 20 minutes to 5 with a GNU Make-based build and
   deployment process, and introduced continuous integration.
 
+**Technologies:** Python, Linux, GNU Make, and regular expressions.
+
 ## Lead Software Developer
 
 **XIM Inc. for Satellite Healthcare** · February 2015 – June 2016
@@ -50,6 +56,9 @@ Some engagements overlapped, as noted in the original resume.
   delivery, issue resolution, and deployment.
 - Supported Scrum planning and estimation, an ITIL process migration, and work toward
   Electronic Health Record Meaningful Use Certification.
+
+**Technologies and domain:** .NET Framework, ASP.NET MVC, Microsoft SQL Server, MySQL,
+Redis, and HIPAA-regulated healthcare.
 
 ## System Architect & Lead Software Developer
 
