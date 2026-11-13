@@ -11,6 +11,8 @@
   [GitHub Copilot](https://github.com/features/copilot), then gave it thorough human
   review. The PDF version is digitally signed, allowing its signature and integrity
   to be verified.
+- **Technologies:** Ollama, Hugging Face Transformers, Python, Flask, Jinja2, Markdown,
+  WeasyPrint, and pyHanko.
 
 ## Skydive Toledo manifest system
 
