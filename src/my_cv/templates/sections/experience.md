@@ -30,7 +30,8 @@ Some engagements overlapped, as noted in the original resume.
   and thorough code reviews.
 
 **Technologies and platforms:** AI inference and tooling, C/C++, .NET and .NET Core,
-Windows Server, Linux, Git, GitHub, Azure, Kubernetes, and cloud.
+Windows Server, Linux, Git, GitHub, Azure, Kubernetes, cloud, RFCs, SIP, HTTP, HTTPS,
+UDP, and TCP.
 
 ## Lead Software Developer
 

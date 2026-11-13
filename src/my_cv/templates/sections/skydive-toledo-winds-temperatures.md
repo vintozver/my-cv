@@ -7,6 +7,6 @@ conditions to jumpers.
 
 Implemented on a Raspberry Pi Zero 2 W.
 
-**Technology:** Raspberry Pi.
+**Technologies:** Raspberry Pi, GitHub Copilot, AI, and Python 3.
 
 [Open the local winds and temperatures aloft display](https://manifest.skydivetoledo.com/wt-aloft/local)

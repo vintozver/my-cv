@@ -11,6 +11,6 @@ aircraft status.
   and a two-step rollout to allow updates with zero downtime.
 - **Satellite displays:** Local displays run on Raspberry Pi 2 W devices and connect
   securely to the main server using VNC.
-- **Technologies:** Raspberry Pi and VNC.
+- **Technologies:** Raspberry Pi, Linux, systemd, and VNC.
 
 [Open the live manifest system](https://manifest.skydivetoledo.com/)
