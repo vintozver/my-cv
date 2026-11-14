@@ -72,6 +72,19 @@ class ResumeTests(unittest.TestCase):
                 self.assertNotIn(b'href="/resume-ats.pdf"', response.data)
                 self.assertIn(b"<h1>", response.data)
         projects = self.client.get("/projects")
+        for project_detail in (
+            b"Condo Suite",
+            b"2020",
+            b"present",
+            b"Active project",
+            b"current home owners association (HOA) board member",
+            b"fellow\nowners",
+            b"organized, maintained, and safe",
+            b"https://github.com/vintozver/condo_suite/",
+            b"MongoDB",
+            b"RabbitMQ",
+        ):
+            self.assertIn(project_detail, projects.data)
         for technology_url in (
             b"https://ollama.com/",
             b"https://huggingface.co/",
@@ -203,6 +216,8 @@ class ResumeTests(unittest.TestCase):
             "Principal Software Engineer", "Microsoft Corporation",
             "October 2016", "Present", "20 minutes to 5 minutes", "75%",
             "C++", "Python", ".NET Core", "Microsoft Azure",
+            "Condo Suite", "2020", "Active project",
+            "current home owners association (HOA) board member",
             "Belarusian State University of Informatics and Radioelectronics",
         ):
             self.assertIn(fact, text)
@@ -229,6 +244,7 @@ class ResumeTests(unittest.TestCase):
             if annotation.get_object().get("/A", {}).get("/URI")
         ]
         self.assertIn("http://localhost/projects/skydive-toledo-manifest", project_links)
+        self.assertIn("https://github.com/vintozver/condo_suite/", project_links)
         self.assertIn("http://localhost/projects/skydive-toledo-winds-temperatures", project_links)
 
         reader = PdfFileReader(BytesIO(response.data))
