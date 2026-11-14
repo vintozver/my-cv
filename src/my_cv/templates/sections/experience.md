@@ -1,6 +1,6 @@
 # Professional experience
 
-Some engagements overlapped, as noted in the original resume.
+Dates include concurrent engagements.
 
 ## Principal Software Engineer
 
@@ -41,8 +41,8 @@ UDP, and TCP.
 
 - Led improvements to system design, build, and deployment; developed log
   collection, service monitoring, recovery, failover, and fast-startup features.
-- Reduced deployment time from 20 minutes to 5 with a GNU Make-based build and
-  deployment process, and introduced continuous integration.
+- Reduced deployment time by 75%, from 20 minutes to 5 minutes, with a GNU Make-based
+  build and deployment process; introduced continuous integration (CI).
 
 **Technologies:** Python, Linux, GNU Make, and regular expressions.
 
@@ -83,15 +83,15 @@ Redis, and HIPAA-regulated healthcare.
 
 **XIM Inc. / Infotechnology LLC** · April 2007 – April 2010
 
-Contributed to internal and client projects across web applications, enterprise
-systems, mobile software, and telecommunications.
+- Developed internal and client projects across web applications, enterprise
+  systems, mobile software, and telecommunications.
 
 ## Software Engineer
 
 **MPOVT JSC** · August 2005 – April 2010
 
-Developed software for telecommunications equipment, including switching engines,
-multiplexers, routers, embedded systems, and real-time billing.
+- Developed software for telecommunications equipment, including switching engines,
+  multiplexers, routers, embedded systems, and real-time billing.
 
 ## Telecommunication Specialist
 

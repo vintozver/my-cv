@@ -17,7 +17,7 @@ from pyhanko.pdf_utils.reader import PdfFileReader
 from pyhanko.sign.validation import validate_pdf_signature
 from pyhanko_certvalidator import ValidationContext
 
-from my_cv.main import SECTION_TITLES, create_app
+from my_cv.main import SECTION_TITLES, create_app, reject_pdf_url
 
 
 class ResumeTests(unittest.TestCase):
@@ -68,6 +68,8 @@ class ResumeTests(unittest.TestCase):
                 response = self.client.get(f"/{section}")
                 self.assertEqual(response.status_code, 200)
                 self.assertIn(b'href="/resume.pdf"', response.data)
+                self.assertEqual(response.data.count(b'class="download-link"'), 1)
+                self.assertNotIn(b'href="/resume-ats.pdf"', response.data)
                 self.assertIn(b"<h1>", response.data)
         projects = self.client.get("/projects")
         for technology_url in (
@@ -142,7 +144,15 @@ class ResumeTests(unittest.TestCase):
         self.assertIn(b"&lt;script&gt;", response.data)
         self.assertNotIn(b"<script>", response.data)
 
-    def test_download_is_signed_and_watermarked_on_every_page(self):
+    def test_separate_ats_download_is_removed(self):
+        self.assertEqual(self.client.get("/resume-ats.pdf").status_code, 404)
+
+    def test_pdf_rendering_rejects_external_and_local_resources(self):
+        for url in ("https://example.com/image.png", "file:///etc/passwd"):
+            with self.subTest(url=url), self.assertRaises(ValueError):
+                reject_pdf_url(url)
+
+    def test_download_is_ats_friendly_and_signed_with_appendix(self):
         with tempfile.TemporaryDirectory() as directory:
             config = Path(directory, "config.yaml")
             config.write_text(yaml.safe_dump({"certificate": {
@@ -157,14 +167,17 @@ class ResumeTests(unittest.TestCase):
         self.assertEqual(key_response.mimetype, "text/plain")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.mimetype, "application/pdf")
+        self.assertIn("vitaly-greck-resume.pdf", response.headers["Content-Disposition"])
         self.assertIn("attachment", response.headers["Content-Disposition"])
         self.assertEqual(response.headers["Cache-Control"], "no-store")
         pdf = PdfReader(BytesIO(response.data))
+        self.assertFalse(pdf.is_encrypted)
         self.assertGreater(len(pdf.pages), 1)
         pages = [page.extract_text() for page in pdf.pages]
         for page in pages:
-            self.assertIn("Vitaly Greck · Resume", page)
-        self.assertIn("Generated:", pages[0])
+            self.assertNotIn("Vitaly Greck · Resume", page)
+        self.assertNotIn("Generated:", pages[0])
+        self.assertIn("Generated:", pages[-1])
         self.assertIn("Signature and certificate details", pages[0])
         self.assertIn("PDF signature and certificate details", pages[-1])
         self.assertIn("signer", pages[-1])
@@ -173,14 +186,36 @@ class ResumeTests(unittest.TestCase):
         self.assertIn("pdfsig", pages[-1])
         self.assertNotIn("PDF signature and certificate details", pages[-2])
         text = "\n".join(pages)
+        self.assertTrue(text.startswith("Vitaly Greck"))
+        for contact in (
+            "Kent, Washington", "https://www.vitaly-greck.us/",
+            "https://www.linkedin.com/in/vintozver", "https://github.com/vintozver",
+        ):
+            self.assertIn(contact, pages[0])
+        headings = (
+            "Professional Summary", "Technical skills", "Professional experience",
+            "Projects", "Education", "Certifications & awards",
+            "PDF signature and certificate details",
+        )
+        positions = [text.index(heading) for heading in headings]
+        self.assertEqual(positions, sorted(positions))
+        for fact in (
+            "Principal Software Engineer", "Microsoft Corporation",
+            "October 2016", "Present", "20 minutes to 5 minutes", "75%",
+            "C++", "Python", ".NET Core", "Microsoft Azure",
+            "Belarusian State University of Informatics and Radioelectronics",
+        ):
+            self.assertIn(fact, text)
+        self.assertNotIn("Personal statement", text)
+        self.assertNotIn("Interests", text)
         for heading in (
-            "Engineering thoughtful, dependable software", "Professional experience",
-            "Personal statement", "Projects", "Local AI experiments and online resume",
+            "Professional Summary", "Professional experience",
+            "Projects", "Local AI experiments and online resume",
             "Skydive Toledo manifest system",
             "Winds and temperatures aloft display for Skydive Toledo",
             "Ollama", "Hugging Face", "multimodal models", "GitHub Copilot",
             "human review", "digitally signed", "Technical skills", "Education",
-            "Certifications & awards", "Interests", "More commercial and independent projects",
+            "Certifications & awards", "More commercial and independent projects",
         ):
             self.assertIn(heading, text)
         self.assertNotIn("Raspberry Pi 4 Model B", text)

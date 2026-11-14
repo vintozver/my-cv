@@ -28,6 +28,8 @@ SECTION_TITLES = {
     "interests": "Interests",
 }
 
+ATS_SECTIONS = ("profile", "skills", "experience", "projects", "education", "credentials")
+
 PROJECT_DETAILS = {
     "pi-registrar": (
         "pi_registrar — authenticated IP address registrar",
@@ -185,7 +187,7 @@ def create_app() -> Flask:
         }
         html = render_template(
             "resume_pdf.html",
-            sections=[(section, render_section(section)) for section in SECTION_TITLES],
+            sections=[(section, render_section(section)) for section in ATS_SECTIONS],
             generated_at=generated_at,
             cert_details=cert_details,
         )
