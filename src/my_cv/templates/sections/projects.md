@@ -1,5 +1,26 @@
 # Projects
 
+## Condo Suite — condominium management
+
+*2020–present · Active project*
+
+As a current home owners association (HOA) board member, I develop
+[Condo Suite](https://github.com/vintozver/condo_suite/) for myself and fellow
+owners to help keep our community organized, maintained, and safe.
+
+- **Community workflows:** Web-based case management, parking event tracking,
+  vehicle records, and visitor parking.
+- **Records and integration:** Searchable parking event histories, supporting
+  files, comments, and a signed JWT API for parking events and vehicle descriptions.
+- **Background AI processing:** Agents analyze and cross-reference events and
+  cases, reporting unresolved issues and violations so the Association or local
+  law enforcement can take action as necessary.
+- **Background processing:** Celery workers with RabbitMQ over mutually
+  authenticated TLS; MongoDB-backed persistence and transactional description
+  updates.
+- **Core technologies:** Python, MongoDB, MongoEngine, Celery, RabbitMQ, Jinja2,
+  JavaScript, jQuery, Gunicorn, gevent, and PyJWT.
+
 ## Local AI experiments and online resume
 
 - **Local inference:** Used [Ollama](https://ollama.com/) to experiment with deploying
