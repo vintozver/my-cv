@@ -1,18 +1,14 @@
-# Engineering thoughtful, dependable software
+# Professional Summary
 
-Software engineer and technical leader with experience spanning real-time
-communications, distributed platforms, healthcare, security, and cloud services.
-Combines hands-on development with system design, mentoring, and cross-team delivery.
+Principal Software Engineer and technical leader with software engineering experience
+since 2005 across real-time communications, distributed systems, healthcare, security,
+and cloud services. Combines hands-on C/C++, C#, Python, and .NET development with
+system architecture, mentoring, and cross-team delivery.
 
-Focuses on AI and its practical applications in software engineering, staying current
-with the latest industry trends and evaluating emerging tools thoughtfully. Brings
-flexibility and a growth mindset to changing technologies and priorities, continuously
-learning and adapting approaches to meet the needs of teams and users.
+At Microsoft, contributes to Skype for Business and Microsoft Teams, including
+authentication and authorization, least-privilege access across eight services,
+high-availability call processing, .NET Core migration, and production incident response.
+Previously led a team of eight and reduced deployment time from 20 minutes to 5 minutes.
 
-At Microsoft, has contributed to Skype for Business and Teams, including
-authentication and privacy improvements, service infrastructure, and highly available
-communications systems. Earlier work includes leading teams, designing web platforms,
-and developing embedded telecommunications software.
-
-**Areas of experience:** Technical leadership · System architecture · Security & authentication ·
-Distributed systems · Real-time communications · AI exploration & application
+Explores practical artificial intelligence (AI) applications through local inference
+with Ollama, Hugging Face Transformers, and GitHub Copilot with human review.
