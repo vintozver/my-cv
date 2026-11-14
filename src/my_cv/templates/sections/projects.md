@@ -12,6 +12,9 @@ owners to help keep our community organized, maintained, and safe.
   vehicle records, and visitor parking.
 - **Records and integration:** Searchable parking event histories, supporting
   files, comments, and a signed JWT API for parking events and vehicle descriptions.
+- **Background AI processing:** Agents analyze and cross-reference events and
+  cases, reporting unresolved issues and violations so the Association or local
+  law enforcement can take action as necessary.
 - **Background processing:** Celery workers with RabbitMQ over mutually
   authenticated TLS; MongoDB-backed persistence and transactional description
   updates.

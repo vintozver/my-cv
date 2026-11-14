@@ -83,6 +83,10 @@ class ResumeTests(unittest.TestCase):
             b"https://github.com/vintozver/condo_suite/",
             b"MongoDB",
             b"RabbitMQ",
+            b"Background AI processing",
+            b"Agents analyze and cross-reference events and",
+            b"cases, reporting unresolved issues and violations",
+            b"Association or local\nlaw enforcement can take action as necessary",
         ):
             self.assertIn(project_detail, projects.data)
         for technology_url in (
@@ -217,6 +221,8 @@ class ResumeTests(unittest.TestCase):
             "October 2016", "Present", "20 minutes to 5 minutes", "75%",
             "C++", "Python", ".NET Core", "Microsoft Azure",
             "Condo Suite", "2020", "Active project",
+            "Background AI processing", "analyze and cross-reference",
+            "unresolved issues and violations", "law enforcement",
             "current home owners association (HOA) board member",
             "Belarusian State University of Informatics and Radioelectronics",
         ):
