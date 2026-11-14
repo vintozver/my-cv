@@ -13,7 +13,7 @@ PYTHONPATH=src python -m flask --app my_cv.main run
 
 Open <http://127.0.0.1:5000/>. Each resume section renders on its own page, with shared navigation between `/profile`, `/experience`, `/projects`, `/skills`, `/education`, `/credentials`, and `/interests`. The home page redirects to `/profile`. Edit the Markdown files in `src/my_cv/templates/sections/` to update resume content, `src/my_cv/templates/index.html` to update the shared layout and navigation, and `src/my_cv/static/style.css` to customize its appearance. Markdown is converted to HTML when rendered; raw HTML in section files is escaped.
 
-## Signed ATS-friendly PDF download
+## Signed PDF download
 
 Use **Download as PDF** (`/resume.pdf`) to save the resume for employer application
 portals. This digitally signed, text-based PDF uses a single column, standard headings,
@@ -29,7 +29,7 @@ employers, dates, and accomplishments accurate. For a specific opening, prioriti
 relevant skills and achievements using the job description's terminology only
 where it reflects actual experience; do not invent qualifications or metrics.
 Check the exported PDF's extracted text and the portal's parsed fields before
-submitting. ATS behavior varies, so this format does not guarantee a ranking or
+submitting. Applicant tracking systems vary, so this format does not guarantee a ranking or
 successful parsing by every employer's system.
 
 WeasyPrint requires its [native system dependencies](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation).

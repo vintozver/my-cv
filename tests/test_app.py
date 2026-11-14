@@ -144,7 +144,7 @@ class ResumeTests(unittest.TestCase):
         self.assertIn(b"&lt;script&gt;", response.data)
         self.assertNotIn(b"<script>", response.data)
 
-    def test_separate_ats_download_is_removed(self):
+    def test_separate_pdf_download_is_removed(self):
         self.assertEqual(self.client.get("/resume-ats.pdf").status_code, 404)
 
     def test_pdf_rendering_rejects_external_and_local_resources(self):
@@ -152,7 +152,7 @@ class ResumeTests(unittest.TestCase):
             with self.subTest(url=url), self.assertRaises(ValueError):
                 reject_pdf_url(url)
 
-    def test_download_is_ats_friendly_and_signed_with_appendix(self):
+    def test_download_has_readable_text_and_is_signed_with_appendix(self):
         with tempfile.TemporaryDirectory() as directory:
             config = Path(directory, "config.yaml")
             config.write_text(yaml.safe_dump({"certificate": {
