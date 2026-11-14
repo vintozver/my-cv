@@ -28,6 +28,8 @@ SECTION_TITLES = {
     "interests": "Interests",
 }
 
+ATS_SECTIONS = ("profile", "skills", "experience", "projects", "education", "credentials")
+
 PROJECT_DETAILS = {
     "pi-registrar": (
         "pi_registrar — authenticated IP address registrar",
@@ -165,6 +167,23 @@ def create_app() -> Flask:
             sections=SECTION_TITLES,
         )
 
+    @app.get("/resume-ats.pdf")
+    def download_ats_pdf():
+        html = render_template(
+            "resume_pdf.html",
+            sections=[(section, render_section(section)) for section in ATS_SECTIONS],
+            ats_mode=True,
+        )
+        pdf = HTML(string=html, url_fetcher=reject_pdf_url).write_pdf(
+            stylesheets=[CSS(string=STYLE_PATH.read_text(encoding="utf-8"))]
+        )
+        response = send_file(
+            BytesIO(pdf), mimetype="application/pdf", as_attachment=True,
+            download_name="vitaly-greck-resume-ats.pdf",
+        )
+        response.headers["Cache-Control"] = "no-store"
+        return response
+
     @app.get("/resume.pdf")
     def download_pdf():
         config_path = os.environ.get("MY_CV_CONFIG", "config.yaml")
@@ -188,6 +207,7 @@ def create_app() -> Flask:
             sections=[(section, render_section(section)) for section in SECTION_TITLES],
             generated_at=generated_at,
             cert_details=cert_details,
+            ats_mode=False,
         )
         pdf = HTML(string=html, url_fetcher=reject_pdf_url).write_pdf(
             stylesheets=[CSS(string=STYLE_PATH.read_text(encoding="utf-8"))]

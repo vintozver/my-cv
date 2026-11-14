@@ -501,6 +501,55 @@ li + li {
     white-space: nowrap;
   }
 
+  .ats-pdf {
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    line-height: 1.35;
+  }
+
+  .ats-pdf a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ats-pdf h1,
+  .ats-pdf h2 {
+    letter-spacing: normal;
+    line-height: 1.25;
+  }
+
+  .ats-pdf header h1 {
+    font-size: 20pt;
+  }
+
+  .ats-pdf header p {
+    margin-bottom: 0.3rem;
+  }
+
+  .ats-pdf .section h1 {
+    font-size: 14pt;
+  }
+
+  .ats-pdf .section + .section {
+    border-top: 0;
+  }
+
+  .ats-pdf .section h2 {
+    margin-top: 0.8rem;
+  }
+
+  .ats-pdf p,
+  .ats-pdf ul {
+    margin-bottom: 0.5rem;
+  }
+
+  .ats-pdf p,
+  .ats-pdf li {
+    orphans: 2;
+    widows: 2;
+  }
+
   .page {
     display: block;
     width: 100%;
